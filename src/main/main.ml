@@ -22,7 +22,18 @@ let max_length matrix =
     max_size := max !max_size matrix.(i).(j);
    done
   done;
-  max_size
+  !max_size
+
+  let max_length_bis matrix =
+    let max_size = ref 0 and i_end=ref 0 and j_end=ref 0 in  
+     for i=0 to (row_count matrix-1) do
+      for j=0 to (col_count matrix -1) do
+        if matrix.(i).(j) > !max_size 
+          then max_size := matrix.(i).(j); 
+               i_end := i; j_end := j
+      done
+     done;
+     !max_size, !i_end-(!max_size)+1, !j_end-(!max_size)+1
   
 let value_to_set_basic s1 s2 matrix i j =
   if (String.get s1 i = String.get s2 j) then 
@@ -74,6 +85,20 @@ let display matrix =
   done;
   print_string "\n]"
 
-let () = let s1="ANANAS" and s2="BANANE" in
-           let m=(create_matrix s1 s2) in 
-            (fill_cell s1 s2 m; display m)
+let max_common_sub_str_size s1 s2 =
+  let m=(create_matrix s1 s2) in 
+   fill_cell s1 s2 m; 
+   let k, i0, j0 = max_length_bis m in
+    i0, j0, k
+let display_solution triplet =
+  let i0, j0, k = triplet in 
+  print_string "(";
+  print_int i0;
+  print_string ", ";
+  print_int j0;
+  print_string ", ";
+  print_int k;
+  print_string ")"
+
+(** Lecture de fichiers *) 
+let () = display_solution (max_common_sub_str_size "kabou" "zzzabouazzz")
