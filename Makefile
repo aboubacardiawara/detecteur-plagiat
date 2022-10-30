@@ -10,8 +10,10 @@ MAIN=$(MAIN_PATH)/*
 ASSERTER=$(TEST_PATH)/myAsserter.ml
 
 main: $(MAIN)
-	ocamlc $(MAIN)
-	rm -f $(MAIN).cm*
+	@echo "< Compilation en cours"
+	@ocamlc $(MAIN)
+	@rm -f $(MAIN).cm*
+	@echo "Compilation finished >"
 
 test: $(TESTS)
 	ocamlc $(TESTS)
