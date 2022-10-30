@@ -1,5 +1,4 @@
-all: 
-	make test
+all:
 	make main
 
 SOURCE_PATH=src/
@@ -12,6 +11,7 @@ ASSERTER=$(TEST_PATH)/myAsserter.ml
 
 main: $(MAIN)
 	ocamlc $(MAIN)
+	rm -f $(MAIN).cm*
 
 test: $(TESTS)
 	ocamlc $(TESTS)
