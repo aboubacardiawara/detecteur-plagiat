@@ -37,7 +37,10 @@ $$ L(i, j) = \left\{
 \right. $$
 ## 2.4 Enrichissement. Determination de la position d'une des sous chaines. 
 On peut utiliser une variable qui stocke les coordonnées $(i, j)$ du maximum local.
-A la fin de l'execution, les positions $(i, j)$ representent 
+A la fin de l'execution, les positions $(i, j)$ representent la position finale de la 
+plus longue sous chaine commune dans $S1$ et $S2$. La deduction du debut dans les deux chaines 
+est alors triviale connaissant sa longueur.
+Notre algorithme renverra un triplet de la forme $(i0, j0, k)$ où k est la taille de la sous chaine. 
 ## 2.5 Analyse de la complexité.
 Soit $n$ et $m$ les tailles respectives des chaines de caractères $S_1$ et $S_2$.
 L'analyse de la compléxité porte sur le nombre d'addition effectuée dans le pire cas.
@@ -50,14 +53,15 @@ Exemple:
 
 On effectuera n*m addition.   
 $aaaa$ est la plus longue sous chaine commune et elle correspond à la chaine $S_2$.
+
+### 2.5.2 Meilleur cas
+*Le meilleur cas* correspond au cas où les deux chaines contiennent des ensembles de caractère disjoints.
 Exemple: 
 - $S_1$  = $abcdef$
 - $S_2$  = $ghijk$
-On effectuera 0 additon
-### 2.5.2 Meilleur cas
-*Le meilleur cas* correspond au cas où les deux chaines contiennent des ensembles de caractère disjoints.
 
+On effectuera 0 additon.
 Globalement la compléxité de cette approche en nombre d'addition est $O(m*n)$ avec m et n les tailles des chaines.
 ## Etapes d'implementation
-- [ ] Terminé totalement
+- [ -] Terminé totalement
 - [ ] Jeu de tests valides 
