@@ -13,12 +13,13 @@ ASSERTER=$(TEST_PATH)/myAsserter.ml
 dynamic: $(MAIN)/dynamic.ml
 	@ocamlc $(MAIN)/dynamic.ml
 	@rm -f $(MAIN)/*.cm*
-	@mv a.out dynamic
+	@mv a.out dynamic.out
 
 suffixe_tree: $(MAIN)/suffixe_tree.ml
 	@ocamlc $(MAIN)/suffixe_tree.ml
 	@rm -f $(MAIN)/*.cm*
-	@mv a.out suffixe_tree
+	@mv a.out suffixe_tree.out
+
 test: $(TESTS)
 	ocamlc $(TESTS)
 
