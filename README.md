@@ -4,7 +4,7 @@
 - todo
 - todo
 
-# Responses aux questions
+# 2. Programmation dynamique
 ## 2.1 Sous structure optimale.
 ### 2.1.1 Quelques exemples
 Exemple1: Soit deux chaines C1 et C2 respectivement egale à ANANAS et BANANE.
@@ -63,5 +63,16 @@ Exemple:
 On effectuera 0 additon.
 Globalement la compléxité de cette approche en nombre d'addition est $O(m*n)$ avec m et n les tailles des chaines.
 ## Etapes d'implementation
-- [ -] Terminé totalement
+- [x] Terminé totalement
 - [ ] Jeu de tests valides 
+
+
+# 3. Arbre de suffixes
+## 3.7 Comment savoir si une chaine C2 est une sous chaine d'une chaine C1.
+## 3.8 Définir une structure de données et les primitives permettant de manipuler les arbres des suffixes
+## 3.9 Definition de la fonction de construction de l'arbre des suffixes `ArbreSuffixes(str) -> Arbre`
+## 3.10 Predicat pour verifier qu'une chaine est une sous-chaine de l'autre `SousChaine(str, str) -> bool`
+## 3.11 Jeu de tests
+## 3.12 Analyse de la complexité (en temps, en espaces)
+## 3.13 Enrichissement
+## 3.14 Analyse des complexités
