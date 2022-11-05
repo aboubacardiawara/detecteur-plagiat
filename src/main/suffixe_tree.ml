@@ -54,8 +54,14 @@ let rec construit(l:string list): arbre_lex=
  let rec verifie(l:string list) (a:arbre_lex) : arbre_lex=
     match l,a with
       [],_-> a;
-      |t::h,n::remaining_nodes-> match existe t n with
-                                  true -> verifie h remaining_nodes
-             `                    |_ -> t::verifie h remaining_nodes 
+      |t::h,node::remaining_nodes-> match node with
+                                      Lettre (v, bool, tree) -> if existe cs tree then 
+                                                                    verifie h remaining_nodes 
+                                                               else  t::verifie h remaining_nodes 
+
+
+
+
+  
 
 
