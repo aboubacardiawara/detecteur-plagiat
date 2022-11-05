@@ -33,3 +33,20 @@ Lettre ('c', false,
    [Lettre ('e', true,
      [Lettre ('f', true, [Lettre ('s', true, [])]); Lettre ('s', true, [])])])]);
 Lettre ('d', false, [Lettre ('o', true, [Lettre ('s', true, [])])])]) then ":)" else ":(")
+
+(*ajoute un mot a l'arbre*)
+let ajoute(m:string) (a:arbre_lex): arbre_lex=
+    match m,a with
+      "",_ ->a
+      |_,[]->let c,cs= consume m in [Lettre (c,(c=""),ajoute cs [])]
+      |_,n::ns -> match n with
+          Lettre(v,b,fils)-> let c,cs= consume m in
+              if c=v then ajoute cs fils
+              else a @ [Lettre (c,(cs=""),ajoute cs [])]
+
+(*contruire un arbre a partir d'un liste de mot*)
+let rec construit(l:string list): arbre_lex=
+    match l with
+      [] -> [];
+      |t:h-> ajouter t construit(h)
+
