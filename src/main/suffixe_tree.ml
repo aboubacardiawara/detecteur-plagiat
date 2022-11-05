@@ -48,5 +48,12 @@ let ajoute(m:string) (a:arbre_lex): arbre_lex=
 let rec construit(l:string list): arbre_lex=
     match l with
       [] -> [];
-      |t:h-> ajouter t construit(h)
+      |t::h-> ajouter t construit(h)
 
+
+ let rec verifie(l:string list) (a:arbre_lex) : arbre_lex=
+    match l,a with
+      [],_-> a;
+      t::h,n::remaining_nodes-> match existe t n with
+              true -> verifie h remaining_nodes
+              _ -> t::verifie h remaining_nodes 
