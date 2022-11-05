@@ -29,12 +29,14 @@ Soit deux chaines:
 On veut determiner la longueur de la plus longue chaine S':
 $$S'=x_i, x_{i+1}x_{i+2}...x_{i+k-1}=y_j, y_{j+1}y_{j+2}...x_{j+k-1}$$
 
-$$ L(i, j) = \left\{
+
+$$ L(i, j)=\left\{
 \begin{array}{ll}
  1 + L(i-1, j-1) & {si} & x_i = y_j \\
  0 & sinon
 \end{array}
 \right. $$
+
 ## 2.4 Enrichissement. Determination de la position d'une des sous chaines.
 On peut utiliser une variable qui stocke les coordonnées $(i, j)$ du maximum local.
 A la fin de l'execution, les positions $(i, j)$ representent la position finale de la
