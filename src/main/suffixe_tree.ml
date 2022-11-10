@@ -27,24 +27,22 @@ let rec existe (m:string) (a:arbre_lex): bool =
       if c=v then existe cs tree
       else existe m remaining_nodes
 
-            (*ajoute un mot a l'arbre*)
-let rec ajoute2 (m:string) (a:arbre_lex): arbre_lex = 
-  match m, a with
-    "", _ -> a
-  |_, [] -> let c,cs= consume m in [Lettre (c,(cs=""),ajoute2 cs [])]
-  |m, Lettre(v,b,fils)::ns -> let c, cs  = consume m in 
-      if c=v then [Lettre (c, b, ajoute2 cs fils)] @ ns
-      else a @ (ajoute2 m ns)
+(*ajoute un mot a l'arbre*)
+let rec sorted_insertion node tree = 
+  match node,tree with
+    _, [] -> [node]
+    | Lettre (v, b, _), (Lettre (v', _, _) as node')::ns ->
+        if v < v' then node :: tree
+        else node' :: (sorted_insertion node ns)
   
-let rec ajoute(m:string) (a:arbre_lex): arbre_lex=
+let rec ajoute(m:string) (a:arbre_lex): arbre_lex =
   match m,a with
     "",_ -> a
-  |_, []->let c,cs = consume m in [Lettre (c,(cs=""),ajoute cs [])]
-  |_, (Lettre (v, b, fils) as n)::ns -> let c,cs= consume m in
-      if c=v then [Lettre (v, (cs=""), ajoute cs fils) ] @ ns
-      else n :: (ajoute m ns)
-            
-let rec rev = function [] -> [] | x::xs -> (rev xs) @ [x]                                    
+    |_, []->let c,cs = consume m in [Lettre (c,(cs=""),ajoute cs [])]
+    |_, (Lettre (v, b, fils) as n)::ns -> let c,cs= consume m in
+      if c=v then (sorted_insertion (Lettre (v, (cs=""), ajoute cs fils)) ns)
+      else sorted_insertion n (ajoute m ns)        
+                               
 (*contruire un arbre a partir d'un liste de mot*)
 let rec construit(l:string list): arbre_lex=
   match rev l with 

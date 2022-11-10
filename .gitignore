@@ -28,3 +28,10 @@ setup.log
 
 # Local OPAM switch
 _opam/
+
+# my exec
+ecriture_fichier
+foo
+dynamic
+lecture_fichier
+suffixe_tree
