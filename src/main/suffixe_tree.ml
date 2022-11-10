@@ -44,10 +44,9 @@ let rec ajoute(m:string) (a:arbre_lex): arbre_lex =
 
 (*teste si un mot appartient à l'arbre*)
 let rec existe (m:string) (a:arbre_lex): bool = 
-  match a, m with
-    [], "" -> true
+  match a,  m with
+    [], "" | _, "" | _, "#" -> true
   | [], _ -> false
-  | _, "" -> true
   | Lettre (v, tree)::remaining_nodes, m -> 
       let c, cs = (consume m) in
       if c=v then existe cs tree
@@ -64,6 +63,20 @@ let rec verifie l a = match l with
   | x::xs -> if existe x a then verifie xs a else x :: (verifie xs a)
 
 (*Question 3.9*)
-let arbreSuffixes = fun w -> ajoute w []  
+let arbreSuffixes = fun w -> construit (substrings w) 
 
-let () =  print_int (size (construit (substrings "ananas#")))
+(*is w2 substring of w1 ?*)
+let sousChaine w1 w2 = existe w2 (arbreSuffixes w1)
+
+
+(**Tests *)
+let rec work_well_sousChaine = function
+      [] -> true
+      | (w1, w2)::examples -> sousChaine w1 w2 && (work_well_sousChaine examples) 
+    
+let testSousChaine = 
+  let l = [("ananas#", "anas"); ("ananas#", "anas#"); ("ananas#", "#"); ("ananas#", "anas")]
+  and l' = [("anas", "ane"); ("hello world", "ello wolrd")] in
+    work_well_sousChaine l && (not (work_well_sousChaine l'))
+  
+let () =  if testSousChaine then print_string ":)" else print_string ":("
