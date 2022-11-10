@@ -31,7 +31,7 @@ let rec sorted_insertion node tree =
 let rec size = function 
     [] -> 0
   | Lettre (v, fils) :: ns -> 
-      if v = '#' then 0
+      if v = '#' then 0 + (size ns)
       else 1 + (size fils) + (size ns) 
 
 let rec ajoute(m:string) (a:arbre_lex): arbre_lex =
@@ -64,4 +64,4 @@ let rec verifie l a = match l with
   | x::xs -> if existe x a then verifie xs a else x :: (verifie xs a)
 
 
-let () =  print_int (size (construit (substrings "ananas")))
+let () =  print_int (size (construit (substrings "ananas#")))
