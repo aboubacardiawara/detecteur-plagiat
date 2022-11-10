@@ -70,13 +70,13 @@ let sousChaine w1 w2 = existe w2 (arbreSuffixes w1)
 
 
 (**Tests *)
-let rec work_well_sousChaine = function
+let rec all_couple_are_sousChaine = function
       [] -> true
       | (w1, w2)::examples -> sousChaine w1 w2 && (work_well_sousChaine examples) 
     
 let testSousChaine = 
   let l = [("ananas#", "anas"); ("ananas#", "anas#"); ("ananas#", "#"); ("ananas#", "anas")]
   and l' = [("anas", "ane"); ("hello world", "ello wolrd")] in
-    work_well_sousChaine l && (not (work_well_sousChaine l'))
+  all_couple_are_sousChaine l && (not (all_couple_are_sousChaine l'))
   
 let () =  if testSousChaine then print_string ":)" else print_string ":("
