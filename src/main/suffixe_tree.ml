@@ -64,6 +64,6 @@ let rec verifie l a = match l with
   | x::xs -> if existe x a then verifie xs a else x :: (verifie xs a)
 
 (*Question 3.9*)
-let arbreSuffixes = construit
+let arbreSuffixes = fun w -> ajoute w []  
 
 let () =  print_int (size (construit (substrings "ananas#")))
