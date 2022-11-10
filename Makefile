@@ -1,6 +1,8 @@
 all:
 	make dynamic
 	make suffixe_tree
+	make lecture_fichier
+	make clean
 
 SOURCE_PATH=src/
 TEST_PATH=$(SOURCE_PATH)/test
@@ -11,14 +13,18 @@ MAIN=$(MAIN_PATH)/
 ASSERTER=$(TEST_PATH)/myAsserter.ml
 
 dynamic: $(MAIN)/dynamic.ml
-	@ocamlc $(MAIN)/dynamic.ml
-	@rm -f $(MAIN)/*.cm*
-	@mv a.out dynamic.out
+	@ocamlopt -o dynamic $(MAIN)/dynamic.ml
 
 suffixe_tree: $(MAIN)/suffixe_tree.ml
-	@ocamlc $(MAIN)/suffixe_tree.ml
-	@rm -f $(MAIN)/*.cm*
-	@mv a.out suffixe_tree.out
+	@ocamlopt -o suffixe_tree $(MAIN)/suffixe_tree.ml
+
+lecture_fichier: $(MAIN)/lecture_fichier.ml
+	@ocamlc unix.cma -o lecture_fichier $(MAIN)/lecture_fichier.ml
+	@ocamlopt  unix.cmxa -o lecture_fichier.nat $(MAIN)/lecture_fichier.ml
+	@rm -f $(MAIN)/*.cm* $(MAIN)/*.o *.nat
+
+ecriture_fichier: $(MAIN)/ecriture_fichier.ml
+	@ocamlopt -o ecriture_fichier $(MAIN)/ecriture_fichier.ml
 
 test: $(TESTS)
 	ocamlc $(TESTS)
@@ -27,3 +33,5 @@ test: $(TESTS)
 asserter: $(ASSERTER)
 	ocamlopt -o myAsserter $(ASSERTER)
 
+clean:
+	@rm -f $(MAIN)/*.cm* $(MAIN)/*.o
