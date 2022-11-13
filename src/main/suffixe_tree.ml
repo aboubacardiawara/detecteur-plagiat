@@ -103,26 +103,52 @@ let get_node_option = function
   Lettre (v, option, _) -> option
 
 let combineOption opt1 opt2 = 
-  Occurences (fst opt1 || fst opt2, snd opt1 || snd opt2 )
+  match opt1, opt2 with 
+  None, Occurences (_, _) -> opt2
+  | Occurences (_, _), None -> opt1
+  | _ -> Occurences (fst opt1 || fst opt2, snd opt1 || snd opt2 )
 
 let rec combineOptionsFrom =
   List.fold_left (fun acc node -> combineOption (get_node_option node) acc) (Occurences (false, false))
+
   
-(**Determine la plus longue sous chaine commune dans un arbre dont les noeuds continne *)
-let selecte_longest (tree:arbre_lex): string = ""
+
+(*determine pour les noeuds s'ils appartiennent aux deux chaines ou pas *)
 let rec counter = 
   function 
     [] -> []
     | Lettre (v, option, sub)::ns -> 
       match v with
-      "#" ->  let newOption = Occurences (true, false) in (Lettre (v, newOption, sub)) :: (counter ns)
-      |"$" ->  let newOption = Occurences (false, true) in (Lettre (v, newOption, sub)) :: (counter ns)
-      | _ -> let newOption = combineOptionsFrom (counter sub) in (Lettre (v, newOption, sub)) :: (counter ns)
+      "#" ->  let newOption = Occurences (true, false) in (Lettre (v, newOption, (counter sub))) :: (counter ns)
+      |"$" ->  let newOption = Occurences (false, true) in (Lettre (v, newOption, (counter sub))) :: (counter ns)
+      | _ -> let newOption = combineOptionsFrom (counter sub) in (Lettre (v, newOption, (counter sub))) :: (counter ns)
+
+let concat s1 l = match l with
+    [] -> s1
+  | [x] -> s1^x
+  
+(**Determine la plus longue sous chaine commune dans un arbre dont les noeuds *)
+let rec  sub_strings (tree:arbre_lex): string list = 
+  match tree with
+  [] -> []
+  | (Lettre (v, opt, sub))::ns -> match opt with
+      Occurences (true, true) -> (concat v (sub_strings sub)) :: (sub_strings ns)
+      | _ -> sub_strings ns
+
+let rec selecte_longest = function
+  [] -> ""
+  | x::xs -> let s'=selecte_longest xs in 
+    if (String.length x) > (String.length s') then x
+    else s'
+
+let rec ajouteMultiple s a = match substrings s with
+    [] -> a
+    | x :: xs -> ajoute x (ajouteMultiple (let c, cs = consumeNextChar s in cs) a)
 
 let sousChainesCommunes (s1:string) (s2:string) :string =
   let tree=(arbreSuffixes (s1^"#")) in 
-    let tree' = ajoute (s2 ^"$") tree in
-      selecte_longest (counter tree')
+    let tree' = ajouteMultiple (s2 ^"$") tree in
+      selecte_longest ( sub_strings (counter tree'))
 
 (**
  TESTS 
@@ -146,4 +172,5 @@ let testNodesOptionAreInitiallyEmpty =
       else false)
 
 
-let () =  if testNodesOptionAreInitiallyEmpty then print_string ":)" else print_string ":("
+(*let () =  if testNodesOptionAreInitiallyEmpty then print_string ":)" else print_string ":("*)
+let () = print_string (sousChainesCommunes "aaabbbaaa" "kkkabbbkkk")
