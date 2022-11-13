@@ -78,21 +78,22 @@ Sinon on arrive pas (aucun fils ne portant l'etiquette de la tête de la chaine 
 n'est pas une sous chaine de C1.
 ## 3.8 Définir une structure de données et les primitives permettant de manipuler les arbres des suffixes
 ```ocaaml
-type ’a arbre_suffixes = Vide | Noeud of ’a * ’a arbre_suffixes list
+type noeud_lex = Lettre of char * arbre_lex
+and arbre_lex = noeud_lex list;;
 
-(**
-	PRIMITIVES
-*)
-
-let newTree = __
-let insert tree element = __
-let search tree element = __
 ```
 
-
-## 3.9 Definition de la fonction de construction de l'arbre des suffixes `ArbreSuffixes(str) -> Arbre`
-## 3.10 Predicat pour verifier qu'une chaine est une sous-chaine de l'autre `SousChaine(str, str) -> bool`
+## 3.9 Definition de la fonction de construction de l'arbre des suffixes 
+```ocaml
+val: arbreSuffixes (string) -> arbre_suffixes
+```
+## 3.10 Predicat pour verifier qu'une chaine est une sous-chaine de l'autre 
+```ocaml
+val: sousChaine (string) (string) -> bool
+```
 ## 3.11 Jeu de tests
 ## 3.12 Analyse de la complexité (en temps, en espaces)
 ## 3.13 Enrichissement
+Nous enrichirons les noeuds par un troisième element (en plus de la valeur du caractere, et des enfants du noeud) de type entier.
+Celui conrespondra à la valeur de la plus longue sous chaine commune parmi ses enfants.
 ## 3.14 Analyse des complexités

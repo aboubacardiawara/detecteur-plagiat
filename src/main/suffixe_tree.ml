@@ -6,7 +6,7 @@
 exception EmptyOption
 exception TestFailure
 
-type option = None | Occurences of int*int;;
+type option = None | Occurences of bool * bool;;
 
 type noeud_lex = Lettre of string * option * arbre_lex
 and arbre_lex = noeud_lex  list;;
@@ -98,16 +98,31 @@ let rec for_each_node tree f = match tree with
   [] -> true
   |(Lettre (v, option, sub) as x)::xs -> (f x) && (for_each_node sub f) && (for_each_node xs f)  
 
-let selecte_longest (tree:arbre_lex): = __
-let counter (tree:arbre_lex):arbre_lex= __
+(**)
+let get_node_option = function
+  Lettre (v, option, _) -> option
 
-let sousChainesCommunes s1 s2 =
+let combineOption opt1 opt2 = 
+  Occurences (fst opt1 || fst opt2, snd opt1 || snd opt2 )
+
+let rec combineOptionsFrom =
+  List.fold_left (fun acc node -> combineOption (get_node_option node) acc) (Occurences (false, false))
+  
+(**Determine la plus longue sous chaine commune dans un arbre dont les noeuds continne *)
+let selecte_longest (tree:arbre_lex): string = ""
+let rec counter = 
+  function 
+    [] -> []
+    | Lettre (v, option, sub)::ns -> 
+      match v with
+      "#" ->  let newOption = Occurences (true, false) in (Lettre (v, newOption, sub)) :: (counter ns)
+      |"$" ->  let newOption = Occurences (false, true) in (Lettre (v, newOption, sub)) :: (counter ns)
+      | _ -> let newOption = combineOptionsFrom (counter sub) in (Lettre (v, newOption, sub)) :: (counter ns)
+
+let sousChainesCommunes (s1:string) (s2:string) :string =
   let tree=(arbreSuffixes (s1^"#")) in 
     let tree' = ajoute (s2 ^"$") tree in
       selecte_longest (counter tree')
-
-
-
 
 (**
  TESTS 
@@ -123,9 +138,6 @@ let testSousChaine =
   and l' = [("anas", "ane"); ("hello world", "ello wolrd")] in
   all_couple_are_sousChaine l && (not (all_couple_are_sousChaine l'))
 
-
-let get_node_option = function
-  Lettre (v, option, _) -> option
 
 let testNodesOptionAreInitiallyEmpty =
   let tree = treeExample in 
