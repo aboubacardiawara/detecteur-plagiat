@@ -93,6 +93,36 @@ val: sousChaine (string) (string) -> bool
 ```
 ## 3.11 Jeu de tests
 ## 3.12 Analyse de la complexité (en temps, en espaces)
+### 3.12.1 Complexite construction de l'arbre
+La musure de complexite porte sur le nombre insertion au pire cas
+Soient $n$ : la taille de la chaine 
+NB: Le pire cas correspond au cas ou il n'y a pas deux suffixe qui commencent par la meme lettre 
+L'algorithme fonctionne comme tel: au debut on insere le premier suffixe(taille n) dans une liste qui est vide donc 0 comparaison mais comme on insere caractere par caractere on aura $n$ insertion
+
+Puis on prend le deuxieme suffixe et on l'insere dans l'arbre qui contient le premier.L'insertion se fait caractere par caractere en faisant en premier lieu la comparaison du caractere avec le noeud courant puis ce qu'il n'y pas deux suffixe qui debute par la meme lettre on fera juste 1 comparaison et $(n+1)$ insertion vu que reste de la liste est vide
+
+Cela va continuer ainsi:
+$suff3$: 2 comparaison et n-1 insertion
+.
+.
+.
+$suff0$: n comparaison et 1 insertion
+
+Au final, om a :
+    $$T = $n$ + $(n-1)$+....+1= $O(n)$ (Temporelle)
+
+### 3.12.1 Existance de souc-Chaine
+La musure de complexite porte sur le nombre de comparaison au pire cas
+NB:le pire cas correspont au cas ou la chaine se trouve au dernier noeud fils de la racine
+
+soit $n$ : La taile de la sous chaine
+soit $a$ : La cardinal de l'alphabet de l'arbre
+
+L'algorithme fait une comparaison caractere par caractere si y'a egalite il entre en profondeur sinon il continu de chercher dans l'autre partie de l'arbre. Dans ce cas on aura: $$T = $n$ + $a$ = $O(n)$ (Temporelle)
+
+A chaque comparaison l'algorithme stock en $c$ et $cs$ qui ont un coup que l'on fixe a constante $cst$ donc au pire cas $(n*cst)
+$$E=$(n*cst)$=$O(n)$ (Espace)
+
 ## 3.13 Enrichissement
 Nous enrichirons les noeuds par un troisième element (en plus de la valeur du caractere, et des enfants du noeud) de type entier.
 Celui conrespondra à la valeur de la plus longue sous chaine commune parmi ses enfants.
