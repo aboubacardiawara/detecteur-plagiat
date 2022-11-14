@@ -5,6 +5,7 @@
 *)
 exception EmptyOption
 exception TestFailure
+exception NotImplementedYet
 
 type option = None | Occurences of bool * bool;;
 
@@ -125,7 +126,8 @@ let rec counter =
 
 let concat s1 l = match l with
     [] -> s1
-  | [x] -> s1^x
+  | x::[] -> s1^x
+  | _ -> s1
   
 (**Determine la plus longue sous chaine commune dans un arbre dont les noeuds *)
 let rec  sub_strings (tree:arbre_lex): string list = 
@@ -173,4 +175,5 @@ let testNodesOptionAreInitiallyEmpty =
 
 
 (*let () =  if testNodesOptionAreInitiallyEmpty then print_string ":)" else print_string ":("*)
-let () = print_string (sousChainesCommunes "aaabbbaaa" "kkkabbbkkk")
+let () = print_string (
+  sousChainesCommunes "Hello world, i am a guest" "Hello world, i am a guest")
