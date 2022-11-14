@@ -177,3 +177,20 @@ let testNodesOptionAreInitiallyEmpty =
 (*let () =  if testNodesOptionAreInitiallyEmpty then print_string ":)" else print_string ":("*)
 let () = print_string (
   sousChainesCommunes "Hello world, i am a guest" "Hello world, i am a guest")
+
+
+  (*Compression de l'arbre des suffixe*)
+  let rec compression (a:arbre_lex):arbre_lex=
+  match a with
+    []->[]
+    |Lettre(v,option,arbre)::reste-> 
+      match v,arbre with
+        "#",_-> Lettre(v,option,arbre)::compression(reste)
+        |_,Lettre("#",opt,[])::[]->Lettre(v^"#",option,[])::[] @ compression(reste)
+        |_,Lettre(l,option,tree)::r -> if r=[] then compression(Lettre(v^l,option,tree)::reste)
+                                else Lettre(v,option,compression(arbre)) @ compression(reste);;
+
+(*Test pour la compression*) 
+let test= let a=arbreSuffixes "ananas#" in compression a;;
+
+(*Compression efficace de l'arbre: AbresufixeCompresse*)
