@@ -93,7 +93,7 @@ val: sousChaine (string) (string) -> bool
 ```
 ## 3.11 Jeu de tests
 ## 3.12 Analyse de la complexité (en temps, en espaces)
-### 3.12.1 Complexite construction de l'arbre
+## 3.12.1 Complexite construction de l'arbre
 La musure de complexite porte sur le nombre insertion au pire cas
 Soient $n$ : la taille de la chaine 
 NB: Le pire cas correspond au cas ou il n'y a pas deux suffixe qui commencent par la meme lettre 
@@ -113,7 +113,7 @@ Au final, om a :
 
 A chaque etape l'algorithme stock en $c$ et $cs$ qui ont un coup que l'on fixe a constante $cst$ donc au pire cas $(n*cst)$ -> $O(n)$ en espace
 
-## 3.12.1 Existance de souc-Chaine
+## 3.12.2 Existance de souc-Chaine
 La musure de complexite porte sur le nombre de comparaison au pire cas
 NB:le pire cas correspont au cas ou la chaine se trouve au dernier noeud fils de la racine
 
