@@ -111,6 +111,8 @@ $suff0$: n comparaison et 1 insertion
 Au final, om a :
     $$T = $n$ + $(n-1)$+....+1= $O(n)$ (Temporelle)
 
+A chaque etape l'algorithme stock en $c$ et $cs$ qui ont un coup que l'on fixe a constante $cst$ donc au pire cas $(n*cst)$ -> $O(n)$ en espace
+
 ### 3.12.1 Existance de souc-Chaine
 La musure de complexite porte sur le nombre de comparaison au pire cas
 NB:le pire cas correspont au cas ou la chaine se trouve au dernier noeud fils de la racine
@@ -120,8 +122,7 @@ soit $a$ : La cardinal de l'alphabet de l'arbre
 
 L'algorithme fait une comparaison caractere par caractere si y'a egalite il entre en profondeur sinon il continu de chercher dans l'autre partie de l'arbre. Dans ce cas on aura: $$T = $n$ + $a$ = $O(n)$ (Temporelle)
 
-A chaque comparaison l'algorithme stock en $c$ et $cs$ qui ont un coup que l'on fixe a constante $cst$ donc au pire cas $(n*cst)
-$$E=$(n*cst)$=$O(n)$ (Espace)
+A chaque comparaison l'algorithme stock en $c$ et $cs$ qui ont un coup que l'on fixe a constante $cst$ donc au pire cas $(n*cst)$ -> $O(n)$ en espace
 
 ## 3.13 Enrichissement
 Nous enrichirons les noeuds par un troisième element (en plus de la valeur du caractere, et des enfants du noeud) de type entier.
