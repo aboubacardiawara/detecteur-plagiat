@@ -152,6 +152,19 @@ let sousChainesCommunes (s1:string) (s2:string) :string =
     let tree' = ajouteMultiple (s2 ^"$") tree in
       selecte_longest ( sub_strings (counter tree'))
 
+
+let rec compression_bis = function 
+  [] -> []
+  | (Lettre (v, opt1, children) as n) :: ns ->
+      begin
+        match v, children with
+          "#", _ 
+          | "$", _ ->  n :: (compression_bis ns)
+          | _, Lettre (v', _, sub) :: [] -> Lettre (v^v', opt1, compression_bis (sub)) :: (compression_bis ns)  
+          | _, _ -> Lettre (v, opt1, compression_bis children) :: (compression_bis ns)
+      end
+
+
 (**
  TESTS 
 *)
@@ -172,8 +185,3 @@ let testNodesOptionAreInitiallyEmpty =
     for_each_node tree (fun node -> 
       if (get_node_option node) = None then true
       else false)
-
-
-(*let () =  if testNodesOptionAreInitiallyEmpty then print_string ":)" else print_string ":("*)
-let () = print_string (
-  sousChainesCommunes "Hello world, i am a guest" "Hello world, i am a guest")

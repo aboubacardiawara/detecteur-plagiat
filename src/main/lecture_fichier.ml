@@ -21,7 +21,7 @@
   in
     List.rev (read_file()) ;;
 
-let main_c () = 
+(*let main_c () = 
  let file =
    if Array.length Sys.argv >= 2 then Sys.argv.(1)
    else failwith "No filename"
@@ -45,6 +45,4 @@ let main () =
    let pt2 = Unix.times () in 
      let ut = pt2.tms_utime -. pt1.tms_utime in
         Printf.printf "user time = %f\n" ut 
-;;
-
-main() ;;
+;;*)

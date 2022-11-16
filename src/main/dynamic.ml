@@ -15,9 +15,9 @@ end
 module Dynamic_algo = struct
     let value_to_set_basic s1 s2 matrix i j =
         if (String.get s1 i = String.get s2 j) then 
-            if (i=0) || (j=0) then 1
-      else matrix.(i-1).(j-1) + 1
-            else 0 
+            (if (i=0) || (j=0) then 1
+            else matrix.(i-1).(j-1) + 1)
+        else 0 
 
     let value_to_set = value_to_set_basic
 
@@ -35,8 +35,8 @@ module Dynamic_algo = struct
         for row=1 to ( String.length s1 -1) do
             for col=1 to (String.length s2 -1) do
                 matrix.(row).(col) <- (value_to_set s1 s2 matrix row col)
-        done
             done
+        done
 
     let fill_cell s1 s2 matrix =
         fill_first_row s1 s2 matrix;
@@ -64,7 +64,7 @@ module Dynamic_algo = struct
                             i_end := i; j_end := j
                 done
             done;
-        !max_size, !i_end-(!max_size)+1, !j_end-(!max_size)+1
+        !i_end-(!max_size)+1, !j_end-(!max_size)+1, !max_size
 
     let max_length matrix =
         let max_size = ref 0 in  
@@ -74,14 +74,6 @@ module Dynamic_algo = struct
             done
         done;
             !max_size
-
-    let max_common_sub_str_size s1 s2 =
-        let m=(Matrix.create_matrix s1 s2) in 
-        fill_cell s1 s2 m; 
-        let k, i0, j0 = max_length_bis m in
-        i0, j0, k
-
-
     let display_solution triplet =
         let i0, j0, k = triplet in 
         print_string "(";
@@ -91,6 +83,21 @@ module Dynamic_algo = struct
         print_string ", ";
         print_int k;
         print_string ")"
+
+    let max_common_sub_str_size s1 s2 =
+        let m=(Matrix.create_matrix s1 s2) in 
+        fill_cell s1 s2 m;
+        max_length_bis m
+
+
+    let solution s1 s2 = 
+        let (i, j, k) = (max_common_sub_str_size s1 s2) in 
+        String.sub s1 i k
 end
-(** Lecture de fichiers *) 
-    let () = Dynamic_algo.display_solution (Dynamic_algo.max_common_sub_str_size "kabou" "zzzabouazzz")
+
+(*
+let s1 = "ananasaaa"
+let s2 = "nanakkkkk"
+
+let () = print_string (Dynamic_algo.solution s1 s2)*)
+(*let () = Dynamic_algo.display_solution (Dynamic_algo.max_common_sub_str_size s1 s2)*)

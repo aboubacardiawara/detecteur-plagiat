@@ -29,9 +29,15 @@ ecriture_fichier: $(MAIN)/ecriture_fichier.ml
 test: $(TESTS)
 	ocamlc $(TESTS)
 
+experimentation: 
+	@cd src/main && ocamlc unix.cma -o experimentation suffixe_tree.ml dynamic.ml lecture_fichier.ml experimentation.ml  && mv experimentation ../..
+	@make clean
 
 asserter: $(ASSERTER)
 	ocamlopt -o myAsserter $(ASSERTER)
 
 clean:
 	@rm -f $(MAIN)/*.cm* $(MAIN)/*.o
+
+cleanExec:
+	@rm experimentation experimentation lecture_fichier suffixe_tree dynamic
