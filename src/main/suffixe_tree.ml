@@ -153,15 +153,15 @@ let sousChainesCommunes (s1:string) (s2:string) :string =
       selecte_longest ( sub_strings (counter tree'))
 
 
-let rec compression_bis = function 
+let rec compression = function 
   [] -> []
   | (Lettre (v, opt1, children) as n) :: ns ->
       begin
         match v, children with
           "#", _ 
-          | "$", _ ->  n :: (compression_bis ns)
-          | _, Lettre (v', _, sub) :: [] -> Lettre (v^v', opt1, compression_bis (sub)) :: (compression_bis ns)  
-          | _, _ -> Lettre (v, opt1, compression_bis children) :: (compression_bis ns)
+          | "$", _ ->  n :: (compression ns)
+          | _, Lettre (v', _, sub) :: [] -> Lettre (v^v', opt1, compression (sub)) :: (compression ns)  
+          | _, _ -> Lettre (v, opt1, compression children) :: (compression ns)
       end
 
 
