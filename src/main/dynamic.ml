@@ -60,8 +60,8 @@ module Dynamic_algo = struct
             for i=0 to (Matrix.row_count matrix-1) do
                 for j=0 to (Matrix.col_count matrix -1) do
                     if matrix.(i).(j) > !max_size 
-                        then max_size := matrix.(i).(j); 
-                            i_end := i; j_end := j
+                        then (max_size := matrix.(i).(j); 
+                            i_end := i; j_end := j)
                 done
             done;
         !i_end-(!max_size)+1, !j_end-(!max_size)+1, !max_size
