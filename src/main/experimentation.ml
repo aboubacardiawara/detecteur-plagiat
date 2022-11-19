@@ -53,16 +53,16 @@ let rec one_to n =
   0 -> []
   | _ -> (one_to (n-1)) @ [n]
 
-let multipleExp =
+let multipleExp solveur =
   let sizes = one_to 200 in
   for i=0 to (List.length sizes-1) do
     let size= List.nth sizes i in
-    let average_duration = average_duration_exp dynamic_solution size in
+    let average_duration = average_duration_exp solveur size in
       Printf.printf "%d %f\n" size average_duration
   done 
 
 
-let () = multipleExp
+let () = multipleExp suff_tree_solution
 
 (*let () = 
   let pt1 = Unix.times () in 
